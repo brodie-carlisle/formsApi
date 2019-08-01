@@ -12,9 +12,7 @@ class Register extends Component {
   change = e => {
     this.setState({
       [e.target.name]: e.target.value
-      
     });
-   
   };
 
   onSubmit = e => {
@@ -31,7 +29,6 @@ class Register extends Component {
       }
     });
     this.props.onSubmit(this.state);
-    // console.log(this.state);
 
     this.setState({
       firstName: "",
