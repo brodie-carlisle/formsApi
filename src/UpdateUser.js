@@ -1,17 +1,19 @@
-import { Redirect } from "react-router-dom";
 import React, { Component } from "react";
 
-class Register extends Component {
-  state = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    password: "",
-    confirmPassword: "",
-    redirect: false
-  };
 
+class UpdateUser extends Component {
+  constructor(props) {
+    super(props);
+    this.props = props;
+    this.state = {
+      firstName: this.props.location.passContact.contact.firstName,
+      lastName: this.props.location.passContact.contact.lastName,
+      email: this.props.location.passContact.contact.email,
+      phoneNumber: this.props.location.passContact.contact.phoneNumber,
+      password: "",
+      confirmPassword: ""
+    };
+  }
   change = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -22,37 +24,31 @@ class Register extends Component {
     e.preventDefault();
 
     const data = this.state;
-    const url = "http://localhost:3000/";
+    const url =
+      "http://localhost:3000/" + this.props.location.passContact.contact._id;
 
     fetch(url, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json"
       }
     });
-    this.setState({ redirect: true });
 
     this.setState({
+      id: "",
       firstName: "",
       lastName: "",
       email: "",
       phoneNumber: "",
-      password: "",
-      confirmPassword:""
+      password: ""
     });
-  };
-  callRedirect = () => {
-    if (this.state.redirect) {
-      return <Redirect to="/Contacts"/>
-    }
   };
 
   render() {
     return (
       <div>
-        {this.callRedirect()}
-        <h1>Register</h1>
+        <h1>Update</h1>
         <form>
           <input
             value={this.state.firstName}
@@ -88,8 +84,7 @@ class Register extends Component {
           />
           <br />
 
-          
-          <input
+          {/* <input
             value={this.state.password}
             onChange={e => this.change(e)}
             name="password"
@@ -97,19 +92,11 @@ class Register extends Component {
             type="password"
             placeholder="Password"
             minLength="8"
-          />
-          <input
-            value={this.state.confirmPassword}
-            onChange={e => this.change(e)}
-            className="textBox"
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            minLength="8"
-          />
+          /> */}
+
           <br />
           <span style={{ fontSize: "55%" }}>Minimum 8 characters</span>
-          <br /> 
+          <br />
 
           <button
             onClick={e => this.onSubmit(e)}
@@ -129,4 +116,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default UpdateUser;

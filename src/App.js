@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Register from "./Register";
-import Contacts from "./Contacts";
+import { BrowserRouter as Router } from "react-router-dom";
+import Nav from "./Nav";
 import "./App.css";
+import Routing from "./Routing";
 
 class App extends Component {
   onSubmit = fields => {
@@ -11,8 +12,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Register onSubmit={fields => this.onSubmit(fields)} />
-        <Contacts onSubmit={fields => this.onSubmit(fields)} />
+        <Router>
+          <Routing />
+          <Nav />
+
+          {/* <Register onSubmit={fields => this.onSubmit(fields)} /> */}
+          {/* <Contacts onSubmit={fields => this.onSubmit(fields)} /> */}
+          {/* <UpdateUser /> */}
+          {/* <ForgotPW /> */}
+        </Router>
       </div>
     );
   }
